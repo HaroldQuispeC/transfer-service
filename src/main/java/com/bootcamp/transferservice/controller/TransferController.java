@@ -17,15 +17,24 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/transfer")
 public class TransferController {
-
+  /*
+  @Autowired
+  com.bootcamp.transferservice.service.CreditCardService creditCardFeignClient;
+  @Autowired
+  com.bootcamp.transferservice.service.IncomeProductService incomeProductServiceFeignClient;
+   */
   @Autowired
   private CreditTransferService  creditTransferService;
 
   @GetMapping("{id}")
-  public Mono<CreditTransfer> findbyId(@PathVariable("id") String id) {
+  public Mono<CreditTransfer> findById(@PathVariable("id") String id) {
     return this.creditTransferService.findById(id);
   }
 
+  /**
+   * findAll method.
+   * @return Flux CreditTransfer
+   */
   @GetMapping
   public Flux<CreditTransfer> findAll() {
     return this.creditTransferService.findAll();

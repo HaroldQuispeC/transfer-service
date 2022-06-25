@@ -1,19 +1,15 @@
 package com.bootcamp.transferservice.model;
 
-import java.util.List;
+import com.bootcamp.transferservice.model.base.ClientBase;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Client {
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class Client extends ClientBase {
   private String idClient;
-  private String joiningDate;
-  private String country;
-  private String address;
-  private ClientType clientType;
-  private String status;
-  private List<String> phones;
-  private List<String> emails;
-  private NaturalPerson naturalPerson;
-  private Business business;
 }
-
