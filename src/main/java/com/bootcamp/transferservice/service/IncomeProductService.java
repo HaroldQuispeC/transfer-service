@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "GATEWAY-SERVICE/api/incomes",
@@ -39,6 +41,11 @@ public interface IncomeProductService {
   @Headers("Content-Type: application/json")
   @CircuitBreaker(name = "income-product-service-cb")
   Credit findByPersonClientId(@PathVariable("id") String id);
+
+  @PutMapping
+  @Headers("Content-Type: application/json")
+  @CircuitBreaker(name = "income-product-service-cb")
+  Credit update(@RequestBody Credit credit);
 
   @Component
   public class IncomeProductServiceFallback implements IncomeProductService {
@@ -72,5 +79,9 @@ public interface IncomeProductService {
       throw new FallbackException(String.format("findByPersonClientId: %s", defaultMessage));
     }
 
+    @Override
+    public Credit update(Credit credit) {
+      throw new FallbackException(String.format("update - Credit: %s", defaultMessage));
+    }
   }
 }
